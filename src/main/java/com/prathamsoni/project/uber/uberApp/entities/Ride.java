@@ -4,7 +4,6 @@ import com.prathamsoni.project.uber.uberApp.entities.enums.PaymentMethod;
 import com.prathamsoni.project.uber.uberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ManyToAny;
 import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
@@ -26,10 +25,10 @@ public class Ride {
     @CreationTimestamp
     private LocalDateTime createdTime;
 
-    @ManyToAny(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Rider rider;
 
-    @ManyToAny(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Driver driver;
 
     @Enumerated(EnumType.STRING)

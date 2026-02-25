@@ -1,6 +1,5 @@
 package com.prathamsoni.project.uber.uberApp.dto;
 
-import com.prathamsoni.project.uber.uberApp.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DriverDto {
 
-    private User user;
+    private Long id;
+    private UserDto user;
     private Double rating;
+    private Boolean available;
+    private String vehicleId;
 }

@@ -37,10 +37,10 @@ public class DistanceServiceOSRMImpl implements DistanceService {
 
 @Data
 class OSRMResponseDto {
-    private List<OSRMRoutes> routes;
+    private List<OSRMRoute> routes;
 }
 
 @Data
-class OSRMRoutes {
+class OSRMRoute {
     private Double distance;
 }

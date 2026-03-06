@@ -26,8 +26,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class DriverServiceImpl implements DriverService {
 
-    private final DriverRepository driverRepository;
     private final RideRequestService rideRequestService;
+    private final DriverRepository driverRepository;
     private final RideService rideService;
     private final ModelMapper modelMapper;
     private final PaymentService paymentService;
@@ -43,7 +43,6 @@ public class DriverServiceImpl implements DriverService {
         }
 
         Driver currentDriver = getCurrentDriver();
-
         if (!currentDriver.getAvailable()) {
             throw new RuntimeException("Driver cannot accept ride due to unavailability");
         }
@@ -60,7 +59,7 @@ public class DriverServiceImpl implements DriverService {
 
         Driver driver = getCurrentDriver();
         if (!driver.equals(ride.getDriver())) {
-            throw new RuntimeException("Driver cannot start a ride as he was not accepted it earlier");
+            throw new RuntimeException("Driver cannot start a ride as he has not accepted it earlier");
         }
 
         if (!ride.getRideStatus().equals(RideStatus.CONFIRMED)) {
@@ -68,7 +67,7 @@ public class DriverServiceImpl implements DriverService {
         }
 
         rideService.updateRideStatus(ride, RideStatus.CANCELLED);
-        updateDriverAvailability(driver, false);
+        updateDriverAvailability(driver, true);
 
         return modelMapper.map(ride, RideDto.class);
     }
@@ -79,7 +78,7 @@ public class DriverServiceImpl implements DriverService {
         Driver driver = getCurrentDriver();
 
         if (!driver.equals(ride.getDriver())) {
-            throw new RuntimeException("Driver cannot start a ride as he was not accepted it earlier");
+            throw new RuntimeException("Driver cannot start a ride as he has not accepted it earlier");
         }
 
         if (!ride.getRideStatus().equals(RideStatus.CONFIRMED)) {
@@ -106,7 +105,7 @@ public class DriverServiceImpl implements DriverService {
         Driver driver = getCurrentDriver();
 
         if (!driver.equals(ride.getDriver())) {
-            throw new RuntimeException("Driver cannot start a ride as he was not accepted it earlier");
+            throw new RuntimeException("Driver cannot start a ride as he has not accepted it earlier");
         }
 
         if (!ride.getRideStatus().equals(RideStatus.ONGOING)) {
@@ -126,6 +125,7 @@ public class DriverServiceImpl implements DriverService {
     public RiderDto rateRider(Long rideId, Integer rating) {
         Ride ride = rideService.getRideById(rideId);
         Driver driver = getCurrentDriver();
+
         if (!driver.equals(ride.getDriver())) {
             throw new RuntimeException("Driver is not the owner of this Ride");
         }
@@ -168,4 +168,5 @@ public class DriverServiceImpl implements DriverService {
     public Driver createNewDriver(Driver driver) {
         return driverRepository.save(driver);
     }
+
 }

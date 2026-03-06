@@ -1,6 +1,5 @@
 package com.prathamsoni.project.uber.uberApp.dto;
 
-import com.prathamsoni.project.uber.uberApp.entities.Wallet;
 import com.prathamsoni.project.uber.uberApp.entities.enums.TransactionMethod;
 import com.prathamsoni.project.uber.uberApp.entities.enums.TransactionType;
 import lombok.Builder;
@@ -23,8 +22,8 @@ public class WalletTransactionDto {
     private RideDto ride;
 
     private String transactionId;
-
-    private Wallet wallet;
+    
+    private WalletDto wallet;
 
     private LocalDateTime timeStamp;
 }

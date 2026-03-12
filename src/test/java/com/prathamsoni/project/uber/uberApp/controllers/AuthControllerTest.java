@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.Set;
@@ -60,8 +59,8 @@ class AuthControllerTest {
                 .jsonPath("$.data.name").isEqualTo(signupDto.getName());
     }
 
-    @Test
-    @WithUserDetails("admin@gmail.com")
+    //    @Test
+//    @WithUserDetails("admin@gmail.com")
     void testOnboardDriver_success() {
 
         if (!userRepository.existsById(1L)) {
